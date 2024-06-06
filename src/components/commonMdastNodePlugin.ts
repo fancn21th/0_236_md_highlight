@@ -14,9 +14,7 @@ export default function plugin() {
           ...node.data,
           hProperties: { className: "i-am-highlighted" },
         };
-        highlightedNVisitedNodes.push(
-          `${node.position.start.line}:${node.position.start.column}:${node.position.end.line}:${node.position.end.column}`
-        );
+        highlightedNVisitedNodes.push(key);
       }
 
       if (highlightedNVisitedNodes.includes(key)) {
