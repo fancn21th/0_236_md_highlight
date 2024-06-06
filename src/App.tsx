@@ -1,13 +1,10 @@
 import Markdown from "react-markdown";
 import headingPlugin from "./headingPlugin";
-
-// Did you know you can use tildes instead of backticks for code in markdown? ✨
-const markdown = `
-# hello
-`;
+import "./App.css";
+import md from "./example.md?raw";
 
 function App() {
-  return <Markdown children={markdown} remarkPlugins={[headingPlugin]} />;
+  return <Markdown children={md} remarkPlugins={[headingPlugin]} />;
 }
 
 export default App;
