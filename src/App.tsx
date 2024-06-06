@@ -4,7 +4,7 @@ import commonMdastNodePlugin from "./commonMdastNodePlugin";
 import "./App.css";
 import md from "./example.md?raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { light } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
               PreTag="div"
               children={String(children).replace(/\n$/, "")}
               language={match[1]}
-              style={light}
+              style={dark}
             />
           ) : (
             <code {...rest} className={className}>
