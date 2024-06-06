@@ -1,15 +1,25 @@
 import { visit } from "unist-util-visit";
 
-export default function plugin() {
+let cursor = 0;
+
+export default function plugin(options) {
+  const { start, end } = options;
   return function (tree) {
-    visit(tree, ["text"], function (node, _, parent) {
-      if (node.type === "text") {
-        console.log(parent);
+    visit(tree, ["text"], function (node, index, parent) {
+      const currentStart = cursor;
+      const currentEnd = cursor + node.value.length;
+
+      cursor = currentEnd;
+
+      // console.log({ cursor, v: node.value });
+
+      if (currentStart < end && currentEnd > start) {
+        console.log({ currentStart, currentEnd, start, end, v: node.value });
+        parent.data = {
+          ...parent.data,
+          highlight: true,
+        };
       }
-      node.data = {
-        ...node.data,
-        highlight: true,
-      };
     });
   };
 }

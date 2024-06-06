@@ -1,6 +1,7 @@
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import commonMdastNodePlugin from "./commonMdastNodePlugin";
+import markNodePlugin from "./markNodePlugin";
 import md from "./example.md?raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -9,7 +10,11 @@ function MyMarkdown() {
   return (
     <Markdown
       children={md}
-      remarkPlugins={[remarkGfm, commonMdastNodePlugin]}
+      remarkPlugins={[
+        remarkGfm,
+        [markNodePlugin, { start: 10, end: 40 }],
+        commonMdastNodePlugin,
+      ]}
       components={{
         code(props) {
           const { children, className, node, ...rest } = props;
