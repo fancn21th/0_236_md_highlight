@@ -12,7 +12,7 @@ function MyMarkdown() {
       children={md}
       remarkPlugins={[
         remarkGfm,
-        [markNodePlugin, { start: 10, end: 40 }],
+        [markNodePlugin, { start: 1, end: 2000 }],
         commonMdastNodePlugin,
       ]}
       components={{
