@@ -13,8 +13,6 @@ let cursor = 0;
 export default function plugin(options) {
   const { start, end } = options;
   return function (tree) {
-    console.log({ tree });
-
     //增加 inlineCode ，inlineCode经常出现在段落中
     visit(tree, ["text", "inlineCode", "list"], function (node, index, parent) {
       if (node.type === "list") {

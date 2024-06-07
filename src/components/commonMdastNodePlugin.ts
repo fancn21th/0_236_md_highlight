@@ -30,10 +30,9 @@ function getASTTypes(node: Node) {
 export default function plugin() {
   return function (tree) {
     const astNodeNames = getASTTypes(tree);
-    console.log({ astNodeNames });
+    // console.log({ astNodeNames });
 
     visit(tree, astNodeNames, function (node) {
-      // console.log({ node });
       if (node.data && node.data.highlight) {
         node.data = {
           ...node.data,
