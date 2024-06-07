@@ -114,3 +114,25 @@ table img {
 .i-am-highlighted {
   background-color: yellow;
 }
+
+pre:has(> code) {
+  color: white;
+    background: rgb(77, 64, 51);
+    text-shadow: black 0px -0.1em 0.2em;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    line-height: 1.5;
+    tab-size: 4;
+    hyphens: none;
+    padding: 1em;
+    margin: 0.5em 0px;
+    overflow: auto;
+    border: 0.3em solid rgb(122, 102, 82);
+    border-radius: 0.5em;
+    box-shadow: black 1px 1px 0.5em inset;
+}

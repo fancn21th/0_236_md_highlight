@@ -2,7 +2,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import commonMdastNodePlugin from "./commonMdastNodePlugin";
 import markNodePlugin from "./markNodePlugin";
-import md from "./example.md?raw";
+import md from "./md_file/各种类型.md?raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -12,7 +12,7 @@ function MyMarkdown() {
       children={md}
       remarkPlugins={[
         remarkGfm,
-        [markNodePlugin, { start: 10, end: 40 }],
+        [markNodePlugin, { start: 1, end: 2000 }],
         commonMdastNodePlugin,
       ]}
       components={{
