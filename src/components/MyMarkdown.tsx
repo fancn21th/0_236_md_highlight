@@ -8,13 +8,15 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function getRange(source: string, searchTxt: string) {
+  const totalLength = source.length;
+  const searchTxtLength = searchTxt.length;
   const start = source.indexOf(searchTxt);
-  const end = start + searchTxt.length;
-  return { start, end };
+  const end = start + searchTxtLength - 1;
+  return { start, end, totalLength, searchTxtLength };
 }
 
 function MyMarkdown() {
-  const [searchTxt, setSearchTxt] = useState("understand");
+  const [searchTxt] = useState("you");
   const [range, setRange] = useState<{
     start: number;
     end: number;
@@ -22,40 +24,45 @@ function MyMarkdown() {
 
   useEffect(() => {
     const newRange = getRange(md, searchTxt);
-    console.log({ newRange });
     setRange(newRange);
   }, [searchTxt]);
 
   return (
-    range && (
-      <Markdown
-        children={md}
-        remarkPlugins={[
-          remarkGfm,
-          [markNodePlugin, { ...range }],
-          commonMdastNodePlugin,
-        ]}
-        components={{
-          code(props) {
-            const { children, className, node, ...rest } = props;
-            const match = /language-(\w+)/.exec(className || "");
-            return match ? (
-              <SyntaxHighlighter
-                {...rest}
-                PreTag="div"
-                children={String(children).replace(/\n$/, "")}
-                language={match[1]}
-                style={dark}
-              />
-            ) : (
-              <code {...rest} className={className}>
-                {children}
-              </code>
-            );
-          },
-        }}
-      />
-    )
+    <>
+      <pre>{JSON.stringify(range, null, 2)}</pre>
+      <pre>source: {md}</pre>
+      <pre>search: {searchTxt}</pre>
+      <hr />
+      {range && range.start >= 0 && (
+        <Markdown
+          children={md}
+          remarkPlugins={[
+            remarkGfm,
+            [markNodePlugin, { ...range }],
+            [commonMdastNodePlugin, { searchTxt }],
+          ]}
+          components={{
+            code(props) {
+              const { children, className, node, ...rest } = props;
+              const match = /language-(\w+)/.exec(className || "");
+              return match ? (
+                <SyntaxHighlighter
+                  {...rest}
+                  PreTag="div"
+                  children={String(children).replace(/\n$/, "")}
+                  language={match[1]}
+                  style={dark}
+                />
+              ) : (
+                <code {...rest} className={className}>
+                  {children}
+                </code>
+              );
+            },
+          }}
+        />
+      )}
+    </>
   );
 }
 
