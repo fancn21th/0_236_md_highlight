@@ -7,7 +7,7 @@ import md from "./example.md?raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-const txt2Search = "something about me";
+const txt2Search = "I want you to know something about me";
 
 function getRange(source: string, searchTxt: string) {
   const totalLength = source.length;

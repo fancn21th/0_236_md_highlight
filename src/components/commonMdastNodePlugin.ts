@@ -11,7 +11,7 @@ function findBeginningPart(
 
   let idx = 0;
 
-  while (nodeTxts[idx] === searchTxts[idx]) {
+  while (nodeTxts[idx] === searchTxts[idx] && idx < nodeTxts.length) {
     idx++;
   }
 
@@ -55,9 +55,9 @@ export default function plugin(options) {
       if (parent && parent.data && parent.data.highlight) {
         // case 1
         if (node.data.isCurrentNodeAtTheBeginning) {
-          const { idx, txt } = findBeginningPart(node.value, searchTxt);
-          const children = getSplittedChildren(node.value, txt, idx);
-          console.log({ children, idx, txt });
+          const { txt } = findBeginningPart(node.value, searchTxt);
+          const children = getSplittedChildren(node.value, txt);
+          console.log({ children, txt });
 
           const paragraphNode = {
             type: "paragraph",
@@ -69,11 +69,6 @@ export default function plugin(options) {
           parent.data = {
             ...parent.data,
             hName: "div",
-          };
-        } else {
-          parent.data = {
-            ...parent.data,
-            hProperties: { className: "i-am-highlighted" },
           };
         }
       }
