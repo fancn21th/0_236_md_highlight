@@ -71,6 +71,11 @@ export default function plugin(options) {
           }; // 创建新的 `paragraph` 节点
 
           parent.children.splice(index, 1, paragraphNode); // 替换旧的节点
+
+          parent.data = {
+            ...parent.data,
+            hName: "div",
+          };
         } else {
           parent.data = {
             ...parent.data,
