@@ -7,6 +7,8 @@ import md from "./example.md?raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+const txt2Search = "something about me";
+
 function getRange(source: string, searchTxt: string) {
   const totalLength = source.length;
   const searchTxtLength = searchTxt.length;
@@ -16,7 +18,7 @@ function getRange(source: string, searchTxt: string) {
 }
 
 function MyMarkdown() {
-  const [searchTxt] = useState("you");
+  const [searchTxt] = useState(txt2Search);
   const [range, setRange] = useState<{
     start: number;
     end: number;

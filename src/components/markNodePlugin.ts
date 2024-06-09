@@ -61,6 +61,7 @@ export default function plugin(options) {
           throw new Error("Parent not found");
         }
 
+        // debug
         console.log({ node, parent });
       }
     });

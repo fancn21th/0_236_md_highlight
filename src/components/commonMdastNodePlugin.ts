@@ -2,31 +2,25 @@ import { visit } from "unist-util-visit";
 
 function findBeginningPart(
   nodeTxt: string,
-  searchTxt: string
-): { idx: number; txt: string } {
-  const words = nodeTxt.split(" ");
-  let startIndex = -1;
-  const hasWord = words.some((word: string, index: number) => {
-    const isStart = searchTxt.startsWith(word);
-    if (isStart) {
-      startIndex = index;
-    }
-    return isStart;
-  });
-  if (!hasWord) {
-    throw new Error("no word found");
+  searchTxt: string // TODO: searchTxt should be preprocessed
+): {
+  txt: string; //
+} {
+  const nodeTxts = nodeTxt.split(" ").reverse();
+  const searchTxts = searchTxt.split(" ").reverse();
+
+  let idx = 0;
+
+  while (nodeTxts[idx] === searchTxts[idx]) {
+    idx++;
   }
+
   return {
-    idx: startIndex,
-    txt: words[startIndex],
+    txt: nodeTxts.slice(0, idx).reverse().join(" "),
   };
 }
 
-function getSplittedChildren(
-  nodeTxt: string,
-  splitTxt: string,
-  index: number
-): any[] {
+function getSplittedChildren(nodeTxt: string, splitTxt: string): any[] {
   const children = nodeTxt.split(splitTxt).map((txt) => {
     return {
       type: "text",
@@ -34,7 +28,7 @@ function getSplittedChildren(
     };
   });
 
-  children.splice(index, 0, {
+  children.splice(1, 0, {
     type: "inlineCode",
     value: splitTxt,
     data: { hProperties: { className: ["i-am-highlighted"] } },
@@ -63,7 +57,7 @@ export default function plugin(options) {
         if (node.data.isCurrentNodeAtTheBeginning) {
           const { idx, txt } = findBeginningPart(node.value, searchTxt);
           const children = getSplittedChildren(node.value, txt, idx);
-          console.log({ children });
+          console.log({ children, idx, txt });
 
           const paragraphNode = {
             type: "paragraph",
