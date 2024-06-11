@@ -15,6 +15,7 @@ let cursor = 0;
  *
  */
 
+// 这个插件的核心功能是给每个 text 节点打标记 确定它是否需要被高亮
 export default function plugin(options) {
   const { start, end } = options;
 

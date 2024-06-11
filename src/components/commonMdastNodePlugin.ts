@@ -46,6 +46,9 @@ function getSplittedChildren(nodeTxt: string, splitTxt: string): any[] {
  *
  */
 
+// 这个插件的核心功能是给每个需要高亮的 text 节点 增加额外的信息
+// 这个信息参考 https://github.com/syntax-tree/mdast-util-to-hast#fields-on-nodes
+// 通过这个信息可以控制 hast 到 html 的转换 中的一些转换细节
 export default function plugin(options) {
   const { searchTxt } = options;
 
@@ -70,6 +73,8 @@ export default function plugin(options) {
             ...parent.data,
             hName: "div",
           };
+        } else if (node.data.isCurrentNodeAtTheEnd) {
+          //
         }
       }
     });
