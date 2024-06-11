@@ -32,6 +32,7 @@ export default function plugin(options) {
       };
 
       if (currentStart < end && currentEnd > start) {
+        // if (currentStart <= start && currentEnd < end) {
         if (currentStart <= start) {
           // case 1
           node.data = {
@@ -62,7 +63,7 @@ export default function plugin(options) {
         }
 
         // debug
-        console.log({ node, parent });
+        console.log({ node, parent, currentStart, currentEnd, start, end });
       }
     });
   };
