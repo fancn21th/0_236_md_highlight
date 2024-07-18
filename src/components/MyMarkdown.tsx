@@ -6,6 +6,12 @@ import markNodePlugin from "./markNodePlugin";
 import md from "./example.md?raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+
+// math
+//    https://github.com/remarkjs/react-markdown#use-remark-and-rehype-plugins-math
+//    https://github.com/remarkjs/remark-math
 
 function getRange(source: string, searchTxt: string) {
   const start = source.indexOf(searchTxt);
@@ -32,9 +38,11 @@ function MyMarkdown() {
         children={md}
         remarkPlugins={[
           remarkGfm,
+          remarkMath,
           [markNodePlugin, { ...range }],
           commonMdastNodePlugin,
         ]}
+        rehypePlugins={[rehypeKatex]}
         components={{
           code(props) {
             const { children, className, node, ...rest } = props;
